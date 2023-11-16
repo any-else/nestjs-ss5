@@ -5,6 +5,7 @@ import { Users } from './modules/users/entity/users.entity';
 import { UsersModule } from './modules/users/users.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -17,6 +18,9 @@ import { AuthModule } from './modules/auth/auth.module';
       database: 'learn-nestjs',
       entities: [Posts, Users],
       synchronize: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     UsersModule,
     PostsModule,

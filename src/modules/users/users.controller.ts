@@ -1,13 +1,27 @@
-import { Controller, Get, Param, Post, Body, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Patch,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './DTO/createUser.dto';
 import { UpdateUserDTO } from './DTO/updateUser.dto';
+import { AuthGuard } from '../../guards/auth.guard';
 
 @Controller('/api/v1/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
   @Get()
-  getAllUsers() {
+  @UseGuards(AuthGuard)
+  getAllUsers(@Req() req) {
+    console.log('req user', req.user);
+    console.log('test get all user');
     return this.usersService.getAllUserService();
   }
 
